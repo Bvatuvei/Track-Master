@@ -1,12 +1,21 @@
 const db = require("../db/connection");
 
 class Employee {
-  async getAllEmployees() {
-    const sql = `SELECT * FROM employee`;
+  constructor(db) {
+    this.db = db;
+  }
+  // async getAllEmployees() {
+  //   const sql = `SELECT * FROM employee`;
 
-    const rows = await db.query(sql) 
-    return rows;
+  //   const rows = await db.query(sql) 
+  //   return rows;
+  // }
+  getAllEmployees() {
+    return this.db.promise().query(`SELECT * FROM employee`)
+  }
+  addEmployee(employee) {
+    return this.db.promise().query(`INSERT INTO employee SET ?`, employee)
   }
 }
 
-module.exports = Employee;
+module.exports = new Employee(db);

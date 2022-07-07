@@ -1,12 +1,18 @@
 const db = require("../db/connection");
 
 class Role {
-  async getAllRoles() {
-    const sql = `SELECT * FROM role`;
+  constructor(db) {
+    this.db = db
+  }
+  // async getAllRoles() {
+  //   const sql = `SELECT * FROM role`;
 
-    const rows = await db.query(sql) 
-    return rows;
+  //   const rows = await db.query(sql) 
+  //   return rows;
+  // }
+  getAllRoles() {
+    return this.db.promise().query(`SELECT * FROM role`);
   }
 }
 
-module.exports = Role;
+module.exports = new Role(db);
