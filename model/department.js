@@ -13,6 +13,12 @@ class Department {
   getAllDepartments() {
     return this.db.promise().query(`SELECT * FROM department`);
   }
+  addDepartment(department) {
+    return this.db.promise().query(`INSERT INTO department SET ?`, department)
+  }
+  updateOldDepartment(department, newValues) {
+    return this.db.promise().query(`UPDATE department SET ? WHERE department.id = ?`, [newValues, department])
+  }
 }
 
 module.exports = new Department(db);

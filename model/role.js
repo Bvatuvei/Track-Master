@@ -13,6 +13,12 @@ class Role {
   getAllRoles() {
     return this.db.promise().query(`SELECT * FROM role`);
   }
+  addRole(role) {
+    return this.db.promise().query(`INSERT INTO role SET ?`, role)
+  }
+  updateOldRole(role, newValues) {
+    return this.db.promise().query(`UPDATE role SET ? WHERE role.id = ?`, [newValues, role])
+  }
 }
 
 module.exports = new Role(db);
